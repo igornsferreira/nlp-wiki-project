@@ -1,0 +1,6 @@
+spacy
+nltk
+goose3
+sumy
+matplotlib
+wordcloud
