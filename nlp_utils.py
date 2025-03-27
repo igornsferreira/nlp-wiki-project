@@ -54,11 +54,12 @@ def salvar_pdf(nome_arquivo):
 
 def nuvem_palavras(texto):
     """Gera e salva uma nuvem de palavras como PDF"""
-    cloud = WordCloud(width=800, height=800, background_color='black').generate(texto)
-    plt.figure(figsize=(8,8))
-    plt.imshow(cloud, interpolation='bilinear')  
-    plt.title("Nuvem de Palavras", fontsize=15, fontweight="bold", pad=15, color="red")
-    plt.axis('off')  
+    cloud = WordCloud(width=800, height=800, background_color='black',
+                      colormap='coolwarm', contour_width=2, contour_color='white').generate(texto)
+    plt.figure(figsize=(10, 10), dpi=80)
+    plt.imshow(cloud, interpolation='bilinear')
+    plt.title("Nuvem de Palavras", fontsize=20, fontweight="bold", pad=20, color="midnightblue")
+    plt.axis('off')
     salvar_pdf("nuvem_palavras.pdf")
     plt.show()
 
@@ -73,10 +74,11 @@ def resumo_textual(texto, idioma):
 
     resumo_texto = "\n".join([str(sentence) for sentence in sumary])
     
-    plt.figure(figsize=(10, 6))
-    plt.text(0.5, 0.5, resumo_texto, ha="center", va="center", wrap=True, fontsize=12)
+    plt.figure(figsize=(12, 8), dpi=100)
+    plt.text(0.5, 0.5, resumo_texto, ha="center", va="center", wrap=True, fontsize=14,
+             color="darkblue", fontweight="light")
     plt.axis("off")
-    plt.title(f"Resumo Textual", fontsize=20, fontweight="bold", pad=20, color="red")
+    plt.title(f"Resumo Textual", fontsize=22, fontweight="bold", pad=20, color="darkred")
     plt.tight_layout()
     salvar_pdf("resumo_textual.pdf")
     plt.show()
@@ -106,13 +108,15 @@ def buscar(texto, idioma):
             resultados += f"... {contexto_texto} ...\n"
             print(f"... {contexto_texto} ...\n")
 
-        plt.figure(figsize=(10, 6))
-        plt.text(0.5, 0.5, resultados, fontsize=12, ha="center", va="center", wrap=True)
+        plt.figure(figsize=(12, 8), dpi=100)
+        plt.text(0.5, 0.5, resultados, fontsize=14, ha="center", va="center", wrap=True, color="darkblue")
         plt.axis("off")
-        plt.title("Resultado da Busca", fontsize=20, fontweight="bold", pad=20, color="red")
+        plt.title("Resultado da Busca", fontsize=22, fontweight="bold", pad=20, color="darkred")
         plt.tight_layout()
+
         salvar_pdf("busca_termo.pdf")
         plt.show()
+
     else:
         print(f"\nO termo '{termo}' não foi encontrado no texto.")
         resultados = f"O termo '{termo}' não foi encontrado no texto."
